@@ -1,0 +1,90 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdk build_versions.compile_sdk
+    buildToolsVersion build_versions.build_tools
+
+    defaultConfig {
+        applicationId "com.ready.lolchamps"
+        minSdk build_versions.min_sdk
+        targetSdk build_versions.target_sdk
+        versionCode build_versions.version_code
+        versionName build_versions.version_name
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        dataBinding true
+    }
+}
+
+dependencies {
+
+    // androidx
+    implementation deps.androidx.appcompat
+    implementation deps.androidx.core_ktx
+    implementation deps.androidx.fragment_ktx
+    implementation deps.androidx.recyclerview
+    implementation deps.androidx.constraintlayout
+
+    // lifecycle
+    implementation deps.lifecycle.runtime_ktx
+    implementation deps.lifecycle.extensions
+    implementation deps.lifecycle.viewmodel_ktx
+
+    // navigation
+    implementation deps.navigation.fragment_ktx
+    implementation deps.navigation.ui_ktx
+
+    // material
+    implementation deps.material.material
+
+    // kotlin
+    implementation deps.kotlin.stdlib
+    implementation deps.kotlin.coroutine
+
+    // persistence
+    implementation deps.persistence.room_ktx
+    implementation deps.persistence.room_runtime
+    kapt deps.persistence.room_compiler
+
+    // image
+    implementation deps.image.glide
+    kapt deps.image.glide_compiler
+
+    // network
+    implementation deps.network.retrofit
+    implementation deps.network.retrofit_moshi
+
+    // serialization
+    implementation deps.serialization.moshi
+    kapt deps.serialization.moshi_codegen
+
+    // hilt
+    implementation deps.di.hilt
+    kapt deps.di.hilt_compiler
+
+    // Test
+    testImplementation deps.test.junit
+    testImplementation deps.test.ext_junit
+    testImplementation deps.test.espresso_core
+}
