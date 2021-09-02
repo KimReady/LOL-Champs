@@ -1,14 +1,16 @@
 package com.ready.lolchamps.di
 
-import android.content.Context
-import com.ready.lolchamps.network.LolChampionsService
+import com.ready.lolchamps.BuildConfig
+import com.ready.lolchamps.network.ChampionService
+import com.ready.lolchamps.network.RequestDebugInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 
@@ -18,17 +20,32 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(@ApplicationContext context: Context): Retrofit {
-        val locale = context.resources.configuration.locales[0]
+    fun provideRequestDebugInterceptor(): RequestDebugInterceptor {
+        return RequestDebugInterceptor()
+    }
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(interceptor: RequestDebugInterceptor): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .callTimeout(1000, TimeUnit.MILLISECONDS)
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://ddragon.leagueoflegends.com/cdn/11.13.1/data/${locale.language}_${locale.country}/")
+            .baseUrl("${BuildConfig.BASE_URL}/${BuildConfig.LOL_VERSION}/")
+            .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
     }
 
     @Provides
     @Singleton
-    fun provideLolChampionsService(retrofit: Retrofit): LolChampionsService {
-        return retrofit.create(LolChampionsService::class.java)
+    fun provideLolChampionsService(retrofit: Retrofit): ChampionService {
+        return retrofit.create(ChampionService::class.java)
     }
 }

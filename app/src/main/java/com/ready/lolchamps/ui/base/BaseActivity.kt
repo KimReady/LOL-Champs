@@ -1,5 +1,6 @@
 package com.ready.lolchamps.ui.base
 
+import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -17,6 +18,11 @@ abstract class BaseActivity<T : ViewDataBinding>(
         addOnContextAvailableListener {
             binding.notifyChange()
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding.lifecycleOwner = this
     }
 
     override fun onDestroy() {

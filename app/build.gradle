@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -14,6 +16,9 @@ android {
         targetSdk build_versions.target_sdk
         versionCode build_versions.version_code
         versionName build_versions.version_name
+
+        buildConfigField "String", "BASE_URL", '"https://ddragon.leagueoflegends.com/cdn"'   // base url to request
+        buildConfigField "String", "LOL_VERSION", '"11.16.1"'   // LOL Version
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -48,7 +53,6 @@ dependencies {
 
     // lifecycle
     implementation deps.lifecycle.runtime_ktx
-    implementation deps.lifecycle.extensions
     implementation deps.lifecycle.viewmodel_ktx
 
     // navigation
@@ -82,6 +86,9 @@ dependencies {
     // hilt
     implementation deps.di.hilt
     kapt deps.di.hilt_compiler
+
+    // logger
+    implementation deps.logger.timber
 
     // Test
     testImplementation deps.test.junit

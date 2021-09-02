@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="champion"
+            type="com.ready.lolchamps.model.Champion" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        tools:background="@color/background">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/champion_splash_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            splashImage="@{champion.id}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="@{champion.name}"
+            style="@style/TextStyle.Keyword"
+            app:layout_constraintTop_toBottomOf="@id/champion_splash_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Akali"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
