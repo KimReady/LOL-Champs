@@ -13,7 +13,7 @@ class ChampionItemDecoration : RecyclerView.ItemDecoration() {
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
-        val spacePx = view.context.dpToPx(BETWEEN_SPACE)
+        val spacePx = view.context.dpToPx(BETWEEN_SPACE) / 2
         if (parent.getChildAdapterPosition(view) % 2 != 0) {
             outRect.left = spacePx
         } else {
@@ -22,6 +22,6 @@ class ChampionItemDecoration : RecyclerView.ItemDecoration() {
     }
 
     companion object {
-        private const val BETWEEN_SPACE = 4f
+        private const val BETWEEN_SPACE = 15f
     }
 }

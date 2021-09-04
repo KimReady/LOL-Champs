@@ -13,6 +13,6 @@ interface ChampionInfoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertChampionInfo(championInfo: ChampionInfo)
 
-    @Query("SELECT * FROM ChampionInfo WHERE name = :name")
-    suspend fun getChampionInfo(name: String): ChampionInfo?
+    @Query("SELECT * FROM ChampionInfo WHERE id = :id")
+    suspend fun getChampionInfo(id: String): ChampionInfo?
 }

@@ -10,7 +10,7 @@ internal fun getSplashImageUri(name: String) =
 internal fun getSkinImageUri(name: String, skin: ChampionInfo.Skin) =
     "${BuildConfig.BASE_URL}/img/champion/loading/${name}_${skin.num}.jpg"
 
-internal fun getSkillImageUri(name: String) =
+internal fun getSpellImageUri(name: String) =
     "${BuildConfig.BASE_URL}/${BuildConfig.LOL_VERSION}/img/spell/${name}.png"
 
 internal fun getPassiveImageUri(fileName: String) =

@@ -1,48 +1,79 @@
 package com.ready.lolchamps.utils
 
 import android.view.View
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.ready.lolchamps.model.Champion
-import com.ready.lolchamps.ui.base.UiState
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
+import com.ready.lolchamps.R
 import com.ready.lolchamps.ui.main.ChampionAdapter
+import com.ready.lolchamps.ui.main.MainUiState
 
 
 object BindingAdapters {
 
     @JvmStatic
-    @BindingAdapter("progress")
-    fun ProgressBar.bindProgressBar(value: Int?) {
-        value?.let {
-            progress = it
+    @BindingAdapter("splashImage")
+    fun AppCompatImageView.bindSplashImage(name: String?) {
+        if (name != null) {
+            Glide.with(context)
+                .load(getSplashImageUri(name))
+                .into(this)
         }
     }
 
     @JvmStatic
-    @BindingAdapter("splashImage")
-    fun AppCompatImageView.bindSplashImage(name: String) {
-        Glide.with(context)
-            .load(getSplashImageUri(name))
-            .into(this)
+    @BindingAdapter("passiveImage")
+    fun AppCompatImageView.bindPassiveImage(name: String?) {
+        if (name != null) {
+            Glide.with(context)
+                .load(getPassiveImageUri(name))
+                .into(this)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("spellImage")
+    fun AppCompatImageView.bindSpellImage(name: String?) {
+        if (name != null) {
+            Glide.with(context)
+                .load(getSpellImageUri(name))
+                .into(this)
+        }
     }
 
     @JvmStatic
     @BindingAdapter("show")
-    fun View.bindShow(uiState: UiState) {
-        visibility = if (uiState is UiState.Loading) View.VISIBLE else View.GONE
+    fun View.bindShow(uiState: MainUiState) {
+        visibility = if (uiState is MainUiState.Loading) View.VISIBLE else View.GONE
+    }
+
+    @JvmStatic
+    @BindingAdapter("isLoading")
+    fun View.bindIsLoading(isLoading: Boolean?) {
+        if (isLoading != null) {
+            visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
     }
 
     @JvmStatic
     @BindingAdapter("toast")
-    fun RecyclerView.bindToast(uiState: UiState) {
-        if (uiState is UiState.Error) {
+    fun View.bindToast(uiState: MainUiState) {
+        if (uiState is MainUiState.Error) {
             uiState.error?.message?.let { errorMessage ->
                 Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("error")
+    fun View.bindErrorMessage(error: Throwable?) {
+        error?.message?.let { errorMessage ->
+            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -60,13 +91,25 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("champions")
-    fun RecyclerView.bindSubmitList(uiState: UiState) {
+    fun RecyclerView.bindSubmitList(uiState: MainUiState) {
         val boundAdapter = this.adapter
-        if (boundAdapter is ChampionAdapter
-            && uiState is UiState.Success<*>) {
-            uiState.data?.let {
-                boundAdapter.submitList(it as List<Champion>)
+        if (boundAdapter is ChampionAdapter && uiState is MainUiState.Success) {
+            boundAdapter.submitList(uiState.data)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("tags")
+    fun ChipGroup.bindTags(tags: List<String>?) {
+        tags?.forEach { tag ->
+            val tagView: Chip = Chip(context).apply {
+                text = tag
+                isCheckable = false
+                isCloseIconVisible = false
+                setChipBackgroundColorResource(R.color.purple)
+                setTextAppearanceResource(R.style.TextStyle_Tag)
             }
+            addView(tagView)
         }
     }
 }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="passive"
+            type="com.ready.lolchamps.model.ChampionInfo.Passive" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:background="@color/darkNavy">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/spell_icon_view"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:passiveImage="@{passive.image.fileName}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/spell_command_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="@string/passive_command"
+            style="@style/TextStyle.Keyword"
+            app:layout_constraintTop_toBottomOf="@id/spell_icon_view"
+            app:layout_constraintStart_toStartOf="@id/spell_icon_view"
+            app:layout_constraintEnd_toEndOf="@id/spell_icon_view"
+            tools:text="P" />
+
+        <TextView
+            android:id="@+id/spell_title_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{passive.name}"
+            style="@style/TextStyle.Title.Spell"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/spell_icon_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Assassin's Mark" />
+
+        <TextView
+            android:id="@+id/spell_desc_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{passive.description}"
+            style="@style/TextStyle.Description"
+            app:layout_constraintTop_toBottomOf="@id/spell_title_view"
+            app:layout_constraintStart_toEndOf="@id/spell_icon_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="@string/dummy_spell_desc_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -25,11 +25,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             adapter = championAdapter
             itemDecoration = championItemDecoration
         }
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getAllChampions()
-            }
-        }
     }
 }

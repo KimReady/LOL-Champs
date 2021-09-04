@@ -28,6 +28,7 @@ object DBModule {
     fun provideAppDatabase(
         @ApplicationContext context: Context,
         imageTypeConverter: ImageTypeConverter,
+        stringListTypeConverter: StringListTypeConverter,
         skinTypeConverter: SkinTypeConverter,
         spellTypeConverter: SpellTypeConverter,
         passiveTypeConverter: PassiveTypeConverter
@@ -35,6 +36,7 @@ object DBModule {
         .databaseBuilder(context, AppDatabase::class.java, "LOLChampions.db")
         .fallbackToDestructiveMigration()
         .addTypeConverter(imageTypeConverter)
+        .addTypeConverter(stringListTypeConverter)
         .addTypeConverter(skinTypeConverter)
         .addTypeConverter(spellTypeConverter)
         .addTypeConverter(passiveTypeConverter)
@@ -51,6 +53,10 @@ object DBModule {
     @Provides
     @Singleton
     fun provideImageTypeConverter(moshi: Moshi): ImageTypeConverter = ImageTypeConverter(moshi)
+
+    @Provides
+    @Singleton
+    fun provideStringListTypeConverter(moshi: Moshi): StringListTypeConverter = StringListTypeConverter(moshi)
 
     @Provides
     @Singleton

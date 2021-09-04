@@ -20,6 +20,15 @@ android {
         buildConfigField "String", "BASE_URL", '"https://ddragon.leagueoflegends.com/cdn"'   // base url to request
         buildConfigField "String", "LOL_VERSION", '"11.16.1"'   // LOL Version
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation" : "$projectDir/schemas".toString()]
+            }
+            annotationProcessorOptions {
+                arguments["dagger.hilt.disableModulesHaveInstallInCheck"] = "true"
+            }
+        }
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -54,6 +63,7 @@ dependencies {
     // lifecycle
     implementation deps.lifecycle.runtime_ktx
     implementation deps.lifecycle.viewmodel_ktx
+    implementation deps.lifecycle.livedata_ktx
 
     // navigation
     implementation deps.navigation.fragment_ktx

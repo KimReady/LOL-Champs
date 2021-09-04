@@ -8,7 +8,7 @@ import com.ready.lolchamps.model.ChampionInfo
 
 
 @Database(entities = [Champion::class, ChampionInfo::class], version = 1, exportSchema = true)
-@TypeConverters(value = [ImageTypeConverter::class, SkinTypeConverter::class, SpellTypeConverter::class, PassiveTypeConverter::class])
+@TypeConverters(value = [ImageTypeConverter::class, StringListTypeConverter::class, SkinTypeConverter::class, SpellTypeConverter::class, PassiveTypeConverter::class])
 abstract class AppDatabase : RoomDatabase() {
     abstract fun championDao(): ChampionDao
     abstract fun championInfoDao(): ChampionInfoDao

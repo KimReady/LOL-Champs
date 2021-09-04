@@ -10,20 +10,27 @@
     <style name="TextStyle.Keyword" parent="@android:style/Widget.TextView">
         <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center</item>
-        <item name="android:padding">10dp</item>
+        <item name="android:padding">5dp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextStyle.Tag" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">2dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="TextStyle.Title.Champion" parent="@android:style/Widget.TextView">
         <item name="android:textColor">@color/white</item>
         <item name="android:gravity">start</item>
-        <item name="android:padding">2dp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="TextStyle.Title.Skill" parent="@android:style/Widget.TextView">
+    <style name="TextStyle.Title.Spell" parent="@android:style/Widget.TextView">
         <item name="android:textColor">@color/yellow</item>
         <item name="android:gravity">start</item>
         <item name="android:padding">2dp</item>
@@ -32,9 +39,8 @@
     </style>
 
     <style name="TextStyle.Description" parent="@android:style/Widget.TextView">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/white_little_trans</item>
         <item name="android:gravity">start</item>
-        <item name="android:padding">2dp</item>
         <item name="android:textSize">10sp</item>
     </style>
 </resources>

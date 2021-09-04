@@ -1,6 +1,8 @@
 package com.ready.lolchamps.ui.main
 
+import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
@@ -9,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ready.lolchamps.R
 import com.ready.lolchamps.databinding.ItemChampionBinding
 import com.ready.lolchamps.model.Champion
+import com.ready.lolchamps.ui.detail.DetailActivity
+import com.ready.lolchamps.ui.detail.DetailActivity.Companion.CHAMPION_ID_KEY
+import com.ready.lolchamps.ui.detail.DetailActivity.Companion.TRANSITION_KEY
 import dagger.hilt.android.scopes.ActivityScoped
 
 @ActivityScoped
@@ -23,9 +28,20 @@ class ChampionAdapter : ListAdapter<Champion, ChampionAdapter.ChampionViewHolder
         holder.bind(getItem(position))
     }
 
-    class ChampionViewHolder(
+    inner class ChampionViewHolder(
         private val binding: ItemChampionBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener { view ->
+                val position = bindingAdapterPosition.takeIf { it != RecyclerView.NO_POSITION } ?: return@setOnClickListener
+
+                val intent = Intent(view.context, DetailActivity::class.java).apply {
+                    putExtra(CHAMPION_ID_KEY, getItem(position).id)
+                }
+                view.context.startActivity(intent)
+            }
+        }
+
         fun bind(item: Champion) {
             binding.apply {
                 champion = item

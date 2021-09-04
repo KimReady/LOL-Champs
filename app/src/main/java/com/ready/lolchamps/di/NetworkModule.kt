@@ -1,6 +1,7 @@
 package com.ready.lolchamps.di
 
 import com.ready.lolchamps.BuildConfig
+import com.ready.lolchamps.network.ChampionInfoService
 import com.ready.lolchamps.network.ChampionService
 import com.ready.lolchamps.network.RequestDebugInterceptor
 import dagger.Module
@@ -29,7 +30,6 @@ object NetworkModule {
     fun provideOkHttpClient(interceptor: RequestDebugInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
-            .callTimeout(1000, TimeUnit.MILLISECONDS)
             .build()
     }
 
@@ -45,7 +45,13 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideLolChampionsService(retrofit: Retrofit): ChampionService {
+    fun provideChampionService(retrofit: Retrofit): ChampionService {
         return retrofit.create(ChampionService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideChampionInfoService(retrofit: Retrofit): ChampionInfoService {
+        return retrofit.create(ChampionInfoService::class.java)
     }
 }

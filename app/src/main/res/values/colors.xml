@@ -5,8 +5,10 @@
     <color name="colorAccent">#FFFFFF</color>
     <color name="background">#161623</color>
 
+    <color name="purple">#3600D0</color>
     <color name="darkNavy">#000217</color>
     <color name="yellow">#FFE600</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_little_trans">#CCFFFFFF</color>
 </resources>
