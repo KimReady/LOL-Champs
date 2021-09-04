@@ -100,6 +100,9 @@ dependencies {
     // logger
     implementation deps.logger.timber
 
+    // layout manager
+    implementation deps.layoutmanager.vplm
+
     // Test
     testImplementation deps.test.junit
     testImplementation deps.test.ext_junit

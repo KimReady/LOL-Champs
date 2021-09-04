@@ -7,7 +7,5 @@
 
         <!-- transitions -->
         <item name="android:windowActivityTransitions">true</item>
-        <item name="android:windowSharedElementEnterTransition">@transition/splash_image_transform</item>
-        <item name="android:windowSharedElementExitTransition">@transition/splash_image_transform</item>
     </style>
 </resources>

@@ -1,6 +1,7 @@
 package com.ready.lolchamps.ui.detail
 
 import android.os.Bundle
+import android.view.ViewTreeObserver
 import androidx.activity.viewModels
 import com.ready.lolchamps.R
 import com.ready.lolchamps.databinding.ActivityDetailBinding
@@ -17,7 +18,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
         DetailViewModel.provideFactory(detailViewModelFactory, championId)
     }
 
-    lateinit var championId: String
+    private lateinit var championId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,10 +29,30 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
         bind {
             vm = viewModel
         }
+
+        initTransition()
+    }
+
+    private fun initTransition() {
+        postponeEnterTransition()
+        binding.splashImageView.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+            override fun onPreDraw(): Boolean {
+                if (binding.splashImageView.measuredHeight > 0) {
+                    binding.splashImageView.viewTreeObserver.removeOnPreDrawListener(this)
+                    supportStartPostponedEnterTransition()
+                }
+                return true
+            }
+        })
+    }
+
+    override fun onBackPressed() {
+        supportFinishAfterTransition()
+
+        super.onBackPressed()
     }
 
     companion object {
         const val CHAMPION_ID_KEY = "CHAMPION_ID_KEY"
-        const val TRANSITION_KEY = "TRANSITION_KEY"
     }
 }

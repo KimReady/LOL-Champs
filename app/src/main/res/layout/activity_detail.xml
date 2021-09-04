@@ -7,6 +7,7 @@
         <variable
             name="vm"
             type="com.ready.lolchamps.ui.detail.DetailViewModel" />
+
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -35,7 +36,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{vm.championInfo.name}"
-                        android:transitionName="@string/transition_champion_name"
                         style="@style/TextStyle.AppBar"
                         tools:text="Akali"
                         />
