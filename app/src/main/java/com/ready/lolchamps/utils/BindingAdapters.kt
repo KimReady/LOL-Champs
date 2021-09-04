@@ -8,49 +8,47 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.jackandphantom.carouselrecyclerview.CarouselRecyclerview
 import com.ready.lolchamps.R
+import com.ready.lolchamps.model.ChampionInfo
+import com.ready.lolchamps.ui.detail.SkinAdapter
 import com.ready.lolchamps.ui.main.ChampionAdapter
 import com.ready.lolchamps.ui.main.MainUiState
 
 
 object BindingAdapters {
-
     @JvmStatic
-    @BindingAdapter("splashImage")
-    fun AppCompatImageView.bindSplashImage(name: String?) {
-        if (name != null) {
+    @BindingAdapter("image")
+    fun AppCompatImageView.bindImage(uri: String?) {
+        if (uri != null) {
             Glide.with(context)
-                .load(getSplashImageUri(name))
+                .load(uri)
                 .into(this)
         }
     }
 
     @JvmStatic
-    @BindingAdapter("passiveImage")
-    fun AppCompatImageView.bindPassiveImage(name: String?) {
-        if (name != null) {
+    @BindingAdapter(value = ["championId", "skinNum"], requireAll = true)
+    fun AppCompatImageView.bindSkinImage(championId: String?, skinNum: Int?) {
+        if (championId != null && skinNum != null) {
             Glide.with(context)
-                .load(getPassiveImageUri(name))
+                .load(getSkinImageUri(championId, skinNum))
                 .into(this)
         }
     }
 
-    @JvmStatic
-    @BindingAdapter("spellImage")
-    fun AppCompatImageView.bindSpellImage(name: String?) {
-        if (name != null) {
-            Glide.with(context)
-                .load(getSpellImageUri(name))
-                .into(this)
-        }
-    }
-
+    /**
+     * for Sealed class method.
+     */
     @JvmStatic
     @BindingAdapter("show")
     fun View.bindShow(uiState: MainUiState) {
         visibility = if (uiState is MainUiState.Loading) View.VISIBLE else View.GONE
     }
 
+    /**
+     * for LiveData(or StateFlow) method
+     */
     @JvmStatic
     @BindingAdapter("isLoading")
     fun View.bindIsLoading(isLoading: Boolean?) {
@@ -59,6 +57,9 @@ object BindingAdapters {
         }
     }
 
+    /**
+     * for Sealed class method.
+     */
     @JvmStatic
     @BindingAdapter("toast")
     fun View.bindToast(uiState: MainUiState) {
@@ -69,6 +70,9 @@ object BindingAdapters {
         }
     }
 
+    /**
+     * for LiveData(or StateFlow) method
+     */
     @JvmStatic
     @BindingAdapter("error")
     fun View.bindErrorMessage(error: Throwable?) {
@@ -84,17 +88,37 @@ object BindingAdapters {
     }
 
     @JvmStatic
+    @BindingAdapter("skinAdapter")
+    fun CarouselRecyclerview.bindSkinAdapter(adapter: RecyclerView.Adapter<*>) {
+        this.adapter = adapter
+
+        setInfinite(true)
+        setAlpha(true)
+        setIntervalRatio(0.8f)
+        isNestedScrollingEnabled = false
+    }
+
+    @JvmStatic
     @BindingAdapter("itemDecoration")
     fun RecyclerView.bindItemDecoration(itemDecoration: RecyclerView.ItemDecoration) {
         addItemDecoration(itemDecoration)
     }
 
     @JvmStatic
-    @BindingAdapter("champions")
-    fun RecyclerView.bindSubmitList(uiState: MainUiState) {
+    @BindingAdapter("championItems")
+    fun RecyclerView.bindChampionItems(uiState: MainUiState) {
         val boundAdapter = this.adapter
         if (boundAdapter is ChampionAdapter && uiState is MainUiState.Success) {
             boundAdapter.submitList(uiState.data)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("skinItems")
+    fun RecyclerView.bindSkinItems(skinItems: List<ChampionInfo.Skin>?) {
+        val boundAdapter = this.adapter
+        if (boundAdapter is SkinAdapter) {
+            boundAdapter.submitList(skinItems)
         }
     }
 

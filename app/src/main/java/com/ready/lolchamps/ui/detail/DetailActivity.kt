@@ -28,6 +28,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
 
         bind {
             vm = viewModel
+            adapter = SkinAdapter(championId)
         }
 
         initTransition()

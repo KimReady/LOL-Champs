@@ -57,7 +57,6 @@ dependencies {
     implementation deps.androidx.appcompat
     implementation deps.androidx.core_ktx
     implementation deps.androidx.fragment_ktx
-    implementation deps.androidx.recyclerview
     implementation deps.androidx.constraintlayout
 
     // lifecycle
@@ -100,8 +99,9 @@ dependencies {
     // logger
     implementation deps.logger.timber
 
-    // layout manager
-    implementation deps.layoutmanager.vplm
+    // recyclerview
+    implementation deps.recyclerview.androidx
+    implementation deps.recyclerview.carousel
 
     // Test
     testImplementation deps.test.junit

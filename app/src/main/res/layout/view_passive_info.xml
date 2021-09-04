@@ -4,6 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import
+            alias="UriHelper"
+            type="com.ready.lolchamps.utils.UriHelperKt" />
         <variable
             name="passive"
             type="com.ready.lolchamps.model.ChampionInfo.Passive" />
@@ -19,7 +22,8 @@
             android:id="@+id/spell_icon_view"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            app:passiveImage="@{passive.image.fileName}"
+            android:scaleType="fitCenter"
+            app:image="@{UriHelper.getPassiveImageUri(passive.image.fileName)}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

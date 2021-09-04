@@ -4,10 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import
+            alias="UriHelper"
+            type="com.ready.lolchamps.utils.UriHelperKt" />
         <variable
             name="vm"
             type="com.ready.lolchamps.ui.detail.DetailViewModel" />
-
+        <variable
+            name="adapter"
+            type="com.ready.lolchamps.ui.detail.SkinAdapter" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -58,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:elevation="6dp"
                 android:transitionName="@string/transition_champion_splash_image"
-                splashImage="@{vm.championInfo.id}"
+                app:image="@{UriHelper.getSplashImageUri(vm.championInfo.id)}"
                 app:layout_constraintTop_toBottomOf="@id/app_bar_layout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -162,17 +167,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <androidx.recyclerview.widget.RecyclerView
+            <com.jackandphantom.carouselrecyclerview.CarouselRecyclerview
                 android:id="@+id/skin_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="300dp"
                 android:layout_marginVertical="@dimen/vertical_space_between_contents"
                 android:layout_marginHorizontal="@dimen/detail_contents_horizontal_margin"
+                app:skinAdapter="@{adapter}"
+                app:skinItems="@{vm.championInfo.skins}"
                 app:layout_constraintTop_toBottomOf="@id/r_spell_view"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                />
+                app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

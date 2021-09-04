@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="championId"
+            type="String" />
+        <variable
+            name="skin"
+            type="com.ready.lolchamps.model.ChampionInfo.Skin" />
+    </data>
+
+    <com.jackandphantom.carouselrecyclerview.view.ReflectionViewContainer
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:reflect_gap="5dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="120dp"
+            android:layout_height="220dp"
+            android:scaleType="fitCenter"
+            app:championId="@{championId}"
+            app:skinNum="@{skin.num}"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@{skin.name}"
+            style="@style/TextStyle.Keyword"/>
+    </com.jackandphantom.carouselrecyclerview.view.ReflectionViewContainer>
+</layout>

@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import
+            alias="UriHelper"
+            type="com.ready.lolchamps.utils.UriHelperKt" />
         <variable
             name="champion"
             type="com.ready.lolchamps.model.Champion" />
@@ -21,7 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:transitionName="@string/transition_champion_splash_image"
-            splashImage="@{champion.id}"
+            android:scaleType="fitCenter"
+            image="@{UriHelper.getSplashImageUri(champion.id)}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>

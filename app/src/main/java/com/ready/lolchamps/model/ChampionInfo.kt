@@ -23,7 +23,7 @@ data class ChampionInfo (
 
     @JsonClass(generateAdapter = true)
     data class Skin(
-        @field:Json(name = "num") val num: String,
+        @field:Json(name = "num") val num: Int,
         @field:Json(name = "name") val name: String
     )
 

@@ -4,6 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import
+            alias="UriHelper"
+            type="com.ready.lolchamps.utils.UriHelperKt" />
+
         <variable
             name="spell"
             type="com.ready.lolchamps.model.ChampionInfo.Spell" />
@@ -23,7 +27,7 @@
             android:id="@+id/spell_icon_view"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            app:spellImage="@{spell.id}"
+            app:image="@{UriHelper.getSpellImageUri(spell.id)}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

@@ -61,7 +61,7 @@
             app:toast="@{vm.uiState}"
             app:adapter="@{adapter}"
             app:itemDecoration="@{itemDecoration}"
-            app:champions="@{vm.uiState}"
+            app:championItems="@{vm.uiState}"
             tools:listitem="@layout/item_champion"/>
 
         <ProgressBar
