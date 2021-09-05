@@ -7,7 +7,9 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 
 class DetailViewModel @AssistedInject constructor(
     detailRepository: DetailRepository,
@@ -19,12 +21,16 @@ class DetailViewModel @AssistedInject constructor(
     private val _error: MutableStateFlow<Throwable?> = MutableStateFlow(null)
     val error: StateFlow<Throwable?> = _error
 
-    val championInfo: LiveData<ChampionInfo> = detailRepository.getChampionInfo(
+    val championInfo: StateFlow<ChampionInfo> = detailRepository.getChampionInfo(
         championId = championId,
         onStart = { _isLoading.value = true },
         onCompletion = { _isLoading.value = false },
         onError = { _error.value = it }
-    ).asLiveData()
+    ).stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000L),
+        initialValue = ChampionInfo()
+    )
 
     @AssistedFactory
     interface Factory {

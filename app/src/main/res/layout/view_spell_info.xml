@@ -7,11 +7,15 @@
         <import
             alias="UriHelper"
             type="com.ready.lolchamps.utils.UriHelperKt" />
+        <import type="java.util.List"/>
+        <import type="com.ready.lolchamps.model.ChampionInfo.Spell"/>
 
         <variable
-            name="spell"
-            type="com.ready.lolchamps.model.ChampionInfo.Spell" />
-
+            name="spellList"
+            type="List&lt;Spell&gt;" />
+        <variable
+            name="index"
+            type="int" />
         <variable
             name="command"
             type="String" />
@@ -27,7 +31,7 @@
             android:id="@+id/spell_icon_view"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            app:image="@{UriHelper.getSpellImageUri(spell.id)}"
+            app:image="@{(index &lt; spellList.size()) ? UriHelper.getSpellImageUri(spellList.get(index).id) : null}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -48,7 +52,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="@{spell.name}"
+            android:text="@{(index &lt; spellList.size()) ? spellList.get(index).name : null}"
             style="@style/TextStyle.Title.Spell"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/spell_icon_view"
@@ -60,7 +64,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="@{spell.description}"
+            android:text="@{(index &lt; spellList.size()) ? spellList.get(index).description : null}"
             style="@style/TextStyle.Description"
             app:layout_constraintTop_toBottomOf="@id/spell_title_view"
             app:layout_constraintStart_toEndOf="@id/spell_icon_view"

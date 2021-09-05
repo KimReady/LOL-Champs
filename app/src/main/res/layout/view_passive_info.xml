@@ -23,7 +23,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:scaleType="fitCenter"
-            app:image="@{UriHelper.getPassiveImageUri(passive.image.fileName)}"
+            app:image="@{passive != null ? UriHelper.getPassiveImageUri(passive.image.fileName) : null}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -44,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="@{passive.name}"
+            android:text="@{passive != null ? passive.name : null}"
             style="@style/TextStyle.Title.Spell"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/spell_icon_view"
@@ -56,7 +56,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="@{passive.description}"
+            android:text="@{passive != null ? passive.description : null}"
             style="@style/TextStyle.Description"
             app:layout_constraintTop_toBottomOf="@id/spell_title_view"
             app:layout_constraintStart_toEndOf="@id/spell_icon_view"

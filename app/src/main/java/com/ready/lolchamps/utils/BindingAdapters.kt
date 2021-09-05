@@ -46,9 +46,6 @@ object BindingAdapters {
         visibility = if (uiState is MainUiState.Loading) View.VISIBLE else View.GONE
     }
 
-    /**
-     * for LiveData(or StateFlow) method
-     */
     @JvmStatic
     @BindingAdapter("isLoading")
     fun View.bindIsLoading(isLoading: Boolean?) {
@@ -70,9 +67,6 @@ object BindingAdapters {
         }
     }
 
-    /**
-     * for LiveData(or StateFlow) method
-     */
     @JvmStatic
     @BindingAdapter("error")
     fun View.bindErrorMessage(error: Throwable?) {
@@ -117,7 +111,7 @@ object BindingAdapters {
     @BindingAdapter("skinItems")
     fun RecyclerView.bindSkinItems(skinItems: List<ChampionInfo.Skin>?) {
         val boundAdapter = this.adapter
-        if (boundAdapter is SkinAdapter) {
+        if (boundAdapter is SkinAdapter && !skinItems.isNullOrEmpty()) {
             boundAdapter.submitList(skinItems)
         }
     }

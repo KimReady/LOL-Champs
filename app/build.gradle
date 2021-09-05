@@ -62,7 +62,6 @@ dependencies {
     // lifecycle
     implementation deps.lifecycle.runtime_ktx
     implementation deps.lifecycle.viewmodel_ktx
-    implementation deps.lifecycle.livedata_ktx
 
     // navigation
     implementation deps.navigation.fragment_ktx

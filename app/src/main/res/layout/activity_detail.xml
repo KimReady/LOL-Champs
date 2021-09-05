@@ -126,7 +126,8 @@
                 android:layout_marginHorizontal="@dimen/detail_contents_horizontal_margin"
                 layout="@layout/view_spell_info"
                 app:command="@{`Q`}"
-                app:spell="@{vm.championInfo.spells.get(0)}"
+                app:spellList="@{vm.championInfo.spells}"
+                app:index="@{0}"
                 app:layout_constraintTop_toBottomOf="@id/passive_spell_view"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -138,7 +139,8 @@
                 android:layout_marginHorizontal="@dimen/detail_contents_horizontal_margin"
                 layout="@layout/view_spell_info"
                 app:command="@{`W`}"
-                app:spell="@{vm.championInfo.spells.get(1)}"
+                app:spellList="@{vm.championInfo.spells}"
+                app:index="@{1}"
                 app:layout_constraintTop_toBottomOf="@id/q_spell_view"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -150,7 +152,8 @@
                 android:layout_marginHorizontal="@dimen/detail_contents_horizontal_margin"
                 layout="@layout/view_spell_info"
                 app:command="@{`E`}"
-                app:spell="@{vm.championInfo.spells.get(2)}"
+                app:spellList="@{vm.championInfo.spells}"
+                app:index="@{2}"
                 app:layout_constraintTop_toBottomOf="@id/w_spell_view"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -162,7 +165,8 @@
                 android:layout_marginHorizontal="@dimen/detail_contents_horizontal_margin"
                 layout="@layout/view_spell_info"
                 app:command="@{`R`}"
-                app:spell="@{vm.championInfo.spells.get(3)}"
+                app:spellList="@{vm.championInfo.spells}"
+                app:index="@{3}"
                 app:layout_constraintTop_toBottomOf="@id/e_spell_view"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
