@@ -3,18 +3,22 @@ package com.ready.lolchamps.ui.detail
 import androidx.lifecycle.*
 import com.ready.lolchamps.model.ChampionInfo
 import com.ready.lolchamps.repository.DetailRepository
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
+import java.lang.IllegalStateException
+import javax.inject.Inject
 
-class DetailViewModel @AssistedInject constructor(
+@HiltViewModel
+class DetailViewModel @Inject constructor(
     detailRepository: DetailRepository,
-    @Assisted private val championId: String
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+    val championId: String = savedStateHandle.get(DetailActivity.CHAMPION_ID_KEY)
+        ?: throw IllegalStateException("There is no value of the champion id.")
+
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
@@ -31,20 +35,4 @@ class DetailViewModel @AssistedInject constructor(
         started = SharingStarted.WhileSubscribed(5_000L),
         initialValue = ChampionInfo()
     )
-
-    @AssistedFactory
-    interface Factory {
-        fun create(championId: String): DetailViewModel
-    }
-
-    companion object {
-        fun provideFactory(
-            factory: Factory,
-            championId: String
-        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return factory.create(championId) as T
-            }
-        }
-    }
 }
