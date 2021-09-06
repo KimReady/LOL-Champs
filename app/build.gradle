@@ -56,16 +56,12 @@ dependencies {
     // androidx
     implementation deps.androidx.appcompat
     implementation deps.androidx.core_ktx
-    implementation deps.androidx.fragment_ktx
+    implementation deps.androidx.activity_ktx
     implementation deps.androidx.constraintlayout
 
     // lifecycle
     implementation deps.lifecycle.runtime_ktx
     implementation deps.lifecycle.viewmodel_ktx
-
-    // navigation
-    implementation deps.navigation.fragment_ktx
-    implementation deps.navigation.ui_ktx
 
     // material
     implementation deps.material.material

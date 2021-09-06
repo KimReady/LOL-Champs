@@ -3,11 +3,9 @@ package com.ready.lolchamps.ui.detail
 import androidx.lifecycle.*
 import com.ready.lolchamps.model.ChampionInfo
 import com.ready.lolchamps.repository.DetailRepository
+import com.ready.lolchamps.ui.base.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 import java.lang.IllegalStateException
 import javax.inject.Inject
 
@@ -19,18 +17,20 @@ class DetailViewModel @Inject constructor(
     val championId: String = savedStateHandle.get(DetailActivity.CHAMPION_ID_KEY)
         ?: throw IllegalStateException("There is no value of the champion id.")
 
-    private val _isLoading = MutableStateFlow(false)
-    val isLoading: StateFlow<Boolean> = _isLoading
+    val uiState: StateFlow<UiState> = detailRepository.getChampionInfo(championId)
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000L),
+            initialValue = UiState.Loading
+        )
 
-    private val _error: MutableStateFlow<Throwable?> = MutableStateFlow(null)
-    val error: StateFlow<Throwable?> = _error
-
-    val championInfo: StateFlow<ChampionInfo> = detailRepository.getChampionInfo(
-        championId = championId,
-        onStart = { _isLoading.value = true },
-        onCompletion = { _isLoading.value = false },
-        onError = { _error.value = it }
-    ).stateIn(
+    val championInfo: StateFlow<ChampionInfo?> = uiState.mapLatest { state ->
+        if (state is UiState.Success<*>) {
+            state.data as ChampionInfo
+        } else {
+            ChampionInfo()
+        }
+    }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000L),
         initialValue = ChampionInfo()

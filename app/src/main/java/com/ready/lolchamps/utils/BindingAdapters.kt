@@ -1,6 +1,7 @@
 package com.ready.lolchamps.utils
 
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
@@ -10,10 +11,11 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.jackandphantom.carouselrecyclerview.CarouselRecyclerview
 import com.ready.lolchamps.R
+import com.ready.lolchamps.model.Champion
 import com.ready.lolchamps.model.ChampionInfo
 import com.ready.lolchamps.ui.detail.SkinAdapter
 import com.ready.lolchamps.ui.main.ChampionAdapter
-import com.ready.lolchamps.ui.main.MainUiState
+import com.ready.lolchamps.ui.base.UiState
 
 
 object BindingAdapters {
@@ -37,41 +39,19 @@ object BindingAdapters {
         }
     }
 
-    /**
-     * for Sealed class method.
-     */
     @JvmStatic
     @BindingAdapter("show")
-    fun View.bindShow(uiState: MainUiState) {
-        visibility = if (uiState is MainUiState.Loading) View.VISIBLE else View.GONE
+    fun ProgressBar.bindShow(uiState: UiState) {
+        visibility = if (uiState is UiState.Loading) View.VISIBLE else View.GONE
     }
 
-    @JvmStatic
-    @BindingAdapter("isLoading")
-    fun View.bindIsLoading(isLoading: Boolean?) {
-        if (isLoading != null) {
-            visibility = if (isLoading) View.VISIBLE else View.GONE
-        }
-    }
-
-    /**
-     * for Sealed class method.
-     */
     @JvmStatic
     @BindingAdapter("toast")
-    fun View.bindToast(uiState: MainUiState) {
-        if (uiState is MainUiState.Error) {
+    fun View.bindToast(uiState: UiState) {
+        if (uiState is UiState.Error) {
             uiState.error?.message?.let { errorMessage ->
                 Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
             }
-        }
-    }
-
-    @JvmStatic
-    @BindingAdapter("error")
-    fun View.bindErrorMessage(error: Throwable?) {
-        error?.message?.let { errorMessage ->
-            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -88,7 +68,7 @@ object BindingAdapters {
 
         setInfinite(true)
         setAlpha(true)
-        setIntervalRatio(0.8f)
+        setIntervalRatio(0.9f)
         isNestedScrollingEnabled = false
     }
 
@@ -98,12 +78,13 @@ object BindingAdapters {
         addItemDecoration(itemDecoration)
     }
 
+    @Suppress("UNCHECKED_CAST")
     @JvmStatic
     @BindingAdapter("championItems")
-    fun RecyclerView.bindChampionItems(uiState: MainUiState) {
+    fun RecyclerView.bindChampionItems(uiState: UiState) {
         val boundAdapter = this.adapter
-        if (boundAdapter is ChampionAdapter && uiState is MainUiState.Success) {
-            boundAdapter.submitList(uiState.data)
+        if (boundAdapter is ChampionAdapter && uiState is UiState.Success<*>) {
+            boundAdapter.submitList(uiState.data as List<Champion>)
         }
     }
 

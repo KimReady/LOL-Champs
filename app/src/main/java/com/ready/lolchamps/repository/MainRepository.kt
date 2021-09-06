@@ -5,7 +5,7 @@ import com.ready.lolchamps.exceptions.EmptyBodyException
 import com.ready.lolchamps.exceptions.NetworkFailureException
 import com.ready.lolchamps.model.Champion
 import com.ready.lolchamps.network.ChampionService
-import com.ready.lolchamps.ui.main.MainUiState
+import com.ready.lolchamps.ui.base.UiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -15,10 +15,10 @@ class MainRepository @Inject constructor(
     private val championDao: ChampionDao
 ) {
 
-    fun getAllChampions() = flow<MainUiState> {
+    fun getAllChampions() = flow<UiState> {
         val championsInDB = championDao.getAllChampionList()
         if (championsInDB.isNotEmpty()) {
-            emit(MainUiState.Success(championsInDB))
+            emit(UiState.Success(championsInDB))
             return@flow
         }
 
@@ -27,11 +27,11 @@ class MainRepository @Inject constructor(
             val champions: List<Champion> =
                 response.body()?.toList() ?: throw EmptyBodyException("[${response.code()}] - ${response.raw()}")
             championDao.insertChampionList(champions)
-            emit(MainUiState.Success(champions))
+            emit(UiState.Success(champions))
         } else {
             throw NetworkFailureException("[${response.code()}] - ${response.raw()}")
         }
     }
-        .catch { emit(MainUiState.Error(it)) }
+        .catch { emit(UiState.Error(it)) }
         .flowOn(Dispatchers.IO)
 }

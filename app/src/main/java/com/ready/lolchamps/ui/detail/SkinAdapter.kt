@@ -24,7 +24,9 @@ class SkinAdapter(
         holder.bind(getItem(position))
     }
 
-    inner class SkinViewHolder(val binding: ItemChampionSkinBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class SkinViewHolder(
+        private val binding: ItemChampionSkinBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ChampionInfo.Skin) {
             binding.apply {
