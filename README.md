@@ -1,5 +1,6 @@
 LOL-Champs
 ==========
+> If this project is useful, please give it a star ⭐
 
 A Android Sample App with champion information of the League of Legends(LOL) using Android Jetpack.
 
