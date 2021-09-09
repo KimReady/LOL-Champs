@@ -1,4 +1,4 @@
-LOL-Champs
+🎉 LOL-Champs
 ==========
 > If this project is useful, please give it a star ⭐
 
@@ -9,11 +9,11 @@ Especially, This project focused on `StateFlow`, not `LiveData`, which is availa
 
 Also this project fetch data from the network and cache data into the local database.
 
-Android Studio IDE setup
+🎈 Android Studio IDE setup
 ----------
 For development, the latest version of Android Studio is required. (At least Arctic Fox version)
 
-Used Libraries
+🗝 Used Libraries
 ----------
 <img src="screenshots/preview.gif" width="25%" align="right"/>
 
@@ -55,13 +55,18 @@ Used Libraries
 [44]: https://kotlinlang.org/docs/reference/coroutines-overview.html
 [45]: https://github.com/sparrow007/CarouselRecyclerview
 
-Architecture
+✨ MAD Scorecard
+----------
+![mad_summary](screenshots/mad_summary.png)
+![mad_kotlin](screenshots/mad_kotlin.png)
+
+🛕 Architecture
 ----------
 LOL-Champs is based on MVVM design pattern and repository pattern
 ![image](https://user-images.githubusercontent.com/22849063/132246469-3bcc36b3-70f3-4ee2-b32d-851bd77dcadd.png)
 
 
-Change LOL's Version
+🎡 Change LOL's Version
 ----------
 LOL-Champs uses the [LOL API](https://developer.riotgames.com/docs/lol) to load data.
 If you want update the API version, update the value `LOL_VERSION` in the `build.gradle` file of the app module.
@@ -70,11 +75,11 @@ If you want update the API version, update the value `LOL_VERSION` in the `build
 buildConfigField "String", "LOL_VERSION", '"11.16.1"' // change this version
 ```
 
-Non-Goals
+💡 Non-Goals
 ----------
 The focus of this project is on Android Jetpack and the Android framework. Thus, there are no immediate plans to implement features outside of this scope.
 
-Screenshots
+📷 Screenshots
 ----------
 <p align="center">
 <img src="screenshots/main.png" width="30%"/>
@@ -83,7 +88,7 @@ Screenshots
 </p>
 
 
-License
+☘️License
 ----------
 ```xml
 Designed and developed by 2021 KimReady (JunBi Kim)
