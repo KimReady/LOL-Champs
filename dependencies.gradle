@@ -27,7 +27,8 @@ deps.androidx = [
 // lifecycle
 deps.lifecycle = [
         runtime_ktx  : "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle",
-        viewmodel_ktx: "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
+        viewmodel_ktx: "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle",
+        livedata_ktx : "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
 ]
 
 // material

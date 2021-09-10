@@ -1,20 +1,27 @@
 package com.ready.lolchamps.ui.main
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.ready.lolchamps.repository.MainRepository
-import com.ready.lolchamps.ui.base.UiState
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
-import javax.inject.Inject
+import com.ready.lolchamps.model.Champion
 
-@HiltViewModel
-class MainViewModel @Inject constructor(
-    private val mainRepository: MainRepository
-): ViewModel() {
-    val uiState: StateFlow<UiState> = mainRepository.getAllChampions()
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000L),
-            initialValue = UiState.Loading)
+class MainViewModel: ViewModel() {
+
+    /**
+     * TODO - If loading data, true. otherwise, false.
+     */
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    /**
+     * TODO - If an error occurs while fetching data, set the message.
+     */
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> = _errorMessage
+
+    /**
+     * TODO - If you succeeded in getting the data from local or remote, set it up.
+     */
+    private val _champions = MutableLiveData<List<Champion>>()
+    val champions: LiveData<List<Champion>> = _champions
 }

@@ -58,17 +58,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:toast="@{vm.uiState}"
+            app:toast="@{vm.errorMessage}"
             app:adapter="@{adapter}"
             app:itemDecoration="@{itemDecoration}"
-            app:championItems="@{vm.uiState}"
+            app:championItems="@{vm.champions}"
             tools:listitem="@layout/item_champion"/>
 
         <ProgressBar
             android:id="@+id/loading_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:show="@{vm.uiState}"
+            app:show="@{vm.isLoading}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

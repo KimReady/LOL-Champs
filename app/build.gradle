@@ -62,6 +62,7 @@ dependencies {
     // lifecycle
     implementation deps.lifecycle.runtime_ktx
     implementation deps.lifecycle.viewmodel_ktx
+    implementation deps.lifecycle.livedata_ktx
 
     // material
     implementation deps.material.material

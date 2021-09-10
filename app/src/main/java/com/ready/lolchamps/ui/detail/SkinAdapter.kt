@@ -11,7 +11,7 @@ import com.ready.lolchamps.databinding.ItemChampionSkinBinding
 import com.ready.lolchamps.model.ChampionInfo
 
 class SkinAdapter(
-    private val id: String
+    private val id: String?
 ) : ListAdapter<ChampionInfo.Skin, SkinAdapter.SkinViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SkinViewHolder {

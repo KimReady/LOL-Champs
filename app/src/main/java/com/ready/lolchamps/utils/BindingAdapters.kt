@@ -15,7 +15,6 @@ import com.ready.lolchamps.model.Champion
 import com.ready.lolchamps.model.ChampionInfo
 import com.ready.lolchamps.ui.detail.SkinAdapter
 import com.ready.lolchamps.ui.main.ChampionAdapter
-import com.ready.lolchamps.ui.base.UiState
 
 
 object BindingAdapters {
@@ -41,17 +40,15 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("show")
-    fun ProgressBar.bindShow(uiState: UiState) {
-        visibility = if (uiState is UiState.Loading) View.VISIBLE else View.GONE
+    fun ProgressBar.bindShow(isLoading: Boolean?) {
+        visibility = if (isLoading == true) View.VISIBLE else View.GONE
     }
 
     @JvmStatic
     @BindingAdapter("toast")
-    fun View.bindToast(uiState: UiState) {
-        if (uiState is UiState.Error) {
-            uiState.error?.message?.let { errorMessage ->
-                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
-            }
+    fun View.bindToast(errorMessage: String?) {
+        if (!errorMessage.isNullOrEmpty()) {
+            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -81,10 +78,10 @@ object BindingAdapters {
     @Suppress("UNCHECKED_CAST")
     @JvmStatic
     @BindingAdapter("championItems")
-    fun RecyclerView.bindChampionItems(uiState: UiState) {
+    fun RecyclerView.bindChampionItems(champions: List<Champion>) {
         val boundAdapter = this.adapter
-        if (boundAdapter is ChampionAdapter && uiState is UiState.Success<*>) {
-            boundAdapter.submitList(uiState.data as List<Champion>)
+        if (boundAdapter is ChampionAdapter) {
+            boundAdapter.submitList(champions)
         }
     }
 

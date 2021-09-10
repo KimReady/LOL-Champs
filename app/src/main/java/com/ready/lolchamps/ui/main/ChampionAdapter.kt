@@ -20,9 +20,8 @@ import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
-@ActivityScoped
-class ChampionAdapter @Inject constructor(
-    @ActivityContext private val context: Context
+class ChampionAdapter (
+    private val context: Context
 ) : ListAdapter<Champion, ChampionAdapter.ChampionViewHolder>(diffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChampionViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
