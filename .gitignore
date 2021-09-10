@@ -15,6 +15,9 @@
 # Java class files
 *.class
 
+# room schema
+*.json
+
 # Generated files
 bin/
 gen/
