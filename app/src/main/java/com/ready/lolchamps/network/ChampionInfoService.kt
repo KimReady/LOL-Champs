@@ -8,6 +8,7 @@ import retrofit2.http.Path
 
 
 interface ChampionInfoService {
+
     @GET("data/en_US/champion/{id}.json")
     suspend fun fetchChampionInfo(@Path("id") id: String): Response<ChampionResponse<ChampionInfo>>
 }

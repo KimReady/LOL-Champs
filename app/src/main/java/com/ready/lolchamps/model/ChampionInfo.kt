@@ -1,12 +1,16 @@
 package com.ready.lolchamps.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.ready.lolchamps.BuildConfig
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 
+@Entity
 @JsonClass(generateAdapter = true)
 data class ChampionInfo (
-    @field:Json(name = "id") val id: String = "",
+    @field:Json(name = "id") @PrimaryKey val id: String = "",
     @field:Json(name = "name") val name: String? = null,
     @field:Json(name = "title") val title: String? = null,
     @field:Json(name = "lore") val lore: String? = null,
