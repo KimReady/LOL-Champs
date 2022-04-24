@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.ready.lolchamps.ui.base.UiStateKt" />
+
         <variable
             name="vm"
             type="com.ready.lolchamps.ui.main.MainViewModel" />
@@ -58,7 +60,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:toast="@{vm.uiState}"
+            app:toast="@{UiStateKt.throwableOrNull(vm.uiState)}"
             app:adapter="@{adapter}"
             app:itemDecoration="@{itemDecoration}"
             app:championItems="@{vm.uiState}"

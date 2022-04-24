@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.ready.lolchamps.model.ChampionInfo
 import com.ready.lolchamps.repository.DetailRepository
 import com.ready.lolchamps.ui.base.UiState
+import com.ready.lolchamps.ui.base.successOrNull
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import java.lang.IllegalStateException
@@ -17,7 +18,7 @@ class DetailViewModel @Inject constructor(
     val championId: String = savedStateHandle.get(DetailActivity.CHAMPION_ID_KEY)
         ?: throw IllegalStateException("There is no value of the champion id.")
 
-    val uiState: StateFlow<UiState> = detailRepository.getChampionInfo(championId)
+    val uiState: StateFlow<UiState<ChampionInfo>> = detailRepository.getChampionInfo(championId)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000L),
@@ -25,14 +26,10 @@ class DetailViewModel @Inject constructor(
         )
 
     val championInfo: StateFlow<ChampionInfo?> = uiState.mapLatest { state ->
-        if (state is UiState.Success<*>) {
-            state.data as ChampionInfo
-        } else {
-            ChampionInfo()
-        }
+        state.successOrNull() ?: ChampionInfo.EMPTY
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000L),
-        initialValue = ChampionInfo()
+        initialValue = ChampionInfo.EMPTY
     )
 }

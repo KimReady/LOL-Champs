@@ -11,26 +11,25 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_detail) {
     private val viewModel: DetailViewModel by viewModels()
+    private val skinAdapter: SkinAdapter by lazy { SkinAdapter(viewModel.championId) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         bind {
             vm = viewModel
-            adapter = SkinAdapter(viewModel.championId)
+            adapter = skinAdapter
         }
 
         initTransition()
     }
 
     private fun initTransition() {
-        postponeEnterTransition()
-        binding.splashImageView.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+        supportPostponeEnterTransition()
+        binding.root.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
             override fun onPreDraw(): Boolean {
-                if (binding.splashImageView.measuredHeight > 0) {
-                    binding.splashImageView.viewTreeObserver.removeOnPreDrawListener(this)
-                    supportStartPostponedEnterTransition()
-                }
+                binding.splashImageView.viewTreeObserver.removeOnPreDrawListener(this)
+                supportStartPostponedEnterTransition()
                 return true
             }
         })

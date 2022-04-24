@@ -17,15 +17,16 @@ class SkinAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SkinViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = DataBindingUtil.inflate<ItemChampionSkinBinding>(layoutInflater, R.layout.item_champion_skin, parent, false)
-        return SkinViewHolder(binding)
+        return SkinViewHolder(binding, id)
     }
 
     override fun onBindViewHolder(holder: SkinViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    inner class SkinViewHolder(
-        private val binding: ItemChampionSkinBinding
+    class SkinViewHolder(
+        private val binding: ItemChampionSkinBinding,
+        private val id: String
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ChampionInfo.Skin) {

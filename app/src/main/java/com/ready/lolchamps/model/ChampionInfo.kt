@@ -41,4 +41,8 @@ data class ChampionInfo (
         @field:Json(name = "description") val description: String,
         @field:Json(name = "image") val image: Image
     )
+
+    companion object {
+        val EMPTY = ChampionInfo()
+    }
 }

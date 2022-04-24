@@ -7,9 +7,13 @@
         <import
             alias="UriHelper"
             type="com.ready.lolchamps.utils.UriHelperKt" />
+
+        <import type="com.ready.lolchamps.ui.base.UiStateKt" />
+
         <variable
             name="vm"
             type="com.ready.lolchamps.ui.detail.DetailViewModel" />
+
         <variable
             name="adapter"
             type="com.ready.lolchamps.ui.detail.SkinAdapter" />
@@ -24,7 +28,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:toast="@{vm.uiState}">
+            app:toast="@{UiStateKt.throwableOrNull(vm.uiState)}">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/app_bar_layout"
